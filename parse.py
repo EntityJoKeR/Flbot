@@ -30,13 +30,13 @@ def get_data():
     soup_parsing = BeautifulSoup(request_parsing, 'xml')
 
     if soup.find('title').text != '403 Forbidden' or soup_parsing.find('title').text != '403 Forbidden':
-        with open('fl_parsing.xml', 'w') as file:
+        with open('fl_parsing.xml', 'w', encoding="utf-8") as file:
             file.write(request_parsing)
-        with open('fl_parsing.xml', 'r') as file:
+        with open('fl_parsing.xml', 'r', encoding="utf-8") as file:
             req_parsing = file.read()
-        with open('fl_bots.xml', 'w') as file:
+        with open('fl_bots.xml', 'w', encoding="utf-8") as file:
             file.write(request_bots)
-        with open('fl_bots.xml', 'r') as file:
+        with open('fl_bots.xml', 'r', encoding="utf-8") as file:
             req_bots = file.read()
 
         pages = [req_parsing, req_bots]
@@ -48,9 +48,9 @@ def get_data():
     elif soup.find('title').text == '403 Forbidden' or soup_parsing.find(
             'title').text == '403 Forbidden':
 
-        with open('fl_parsing.xml', 'r') as file:
+        with open('fl_parsing.xml', 'r', encoding="utf-8") as file:
             req_parsing = file.read()
-        with open('fl_bots.xml', 'r') as file:
+        with open('fl_bots.xml', 'r', encoding="utf-8") as file:
             req_bots = file.read()
 
         pages = [req_parsing, req_bots]
@@ -61,9 +61,9 @@ def get_data():
 
     else:
 
-        with open('fl_parsing.xml', 'r') as file:
+        with open('fl_parsing.xml', 'r', encoding="utf-8") as file:
             req_parsing = file.read()
-        with open('fl_bots.xml', 'r') as file:
+        with open('fl_bots.xml', 'r', encoding="utf-8") as file:
             req_bots = file.read()
 
         print('всё пошло не так')
@@ -103,5 +103,5 @@ def main():
 
     category_list = [parsing_list, bots_list]
 
-    with open('all.json', 'w', encoding='utf-8') as file:
+    with open('all.json', 'w', encoding="utf-8") as file:
         json.dump(category_list, file, indent=4, ensure_ascii=False)

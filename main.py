@@ -1,14 +1,13 @@
 import json
 import logging
 import os
-from asyncio import sleep
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils.markdown import hlink
 from background import keep_alive
 from parse import main
 from dotenv import load_dotenv
-
+import time
 load_dotenv()
 
 logging.basicConfig(level='DEBUG', filename="logs.log", filemode="w")
@@ -47,11 +46,11 @@ async def start(message: types.Message):
 async def send_parsing_list(message: types.Message):
     await message.answer('Please waiting...')
     main()
-    with open('all.json', 'r') as file:
+    with open('all.json', 'r', encoding="utf-8") as file:
         categories = json.load(file)
         for index, item in enumerate(categories[0]):
             if index % 20 == 0:
-                await sleep(0)
+                time.sleep(2)
             else:
                 await bot.send_message(message.from_user.id, text=f"{hlink(item['title'], item['link'])}\n\n{item['description']}\n\n{item['date']}\n", disable_web_page_preview=True)
 
@@ -60,11 +59,11 @@ async def send_parsing_list(message: types.Message):
 async def send_bots_list(message: types.Message):
     await message.answer('Please waiting...')
     main()
-    with open('all.json', 'r') as file:
+    with open('all.json', 'r', encoding="utf-8") as file:
         categories = json.load(file)
         for index, item in enumerate(categories[1]):
             if index % 20 == 0:
-                await sleep(3)
+                time.sleep(2)
             else:
                 await bot.send_message(message.from_user.id, text=f"{hlink(item['title'], item['link'])}\n\n{item['description']}\n\n{item['date']}\n", disable_web_page_preview=True)
 
